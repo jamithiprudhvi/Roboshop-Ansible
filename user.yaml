@@ -68,9 +68,9 @@
       ansible.builtin.command: mongo --host mongodb.prudhvi.online < /app/schema/user.js
       when: product_count.stdout == 0
 
-    - name: Start and enable user
+    - name: Start and enable cart
       ansible.builtin.service:
-        name: user
+        name: cart
         state: restarted  
         enabled: yes
 
