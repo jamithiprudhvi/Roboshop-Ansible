@@ -1,5 +1,5 @@
 - name: web
-  hosta: web
+  hosts: web
   become: yes
   tasks:
     - name: install nginx
