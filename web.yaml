@@ -24,7 +24,7 @@
         dest: /tmp
 
     - name: changing directory
-      ansible.builtin.command: /usr/share/nginx/html
+      ansible.builtin.command: cd /usr/share/nginx/html
 
     - name: Extract web application
       ansible.builtin.unarchive:
