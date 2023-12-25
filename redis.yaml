@@ -4,7 +4,7 @@
   tasks:
     - name: install remi-release-8.9-2.el8.remi 
       ansible.builtin.package:
-        name: remi-release-8.rpm
+        name: remi-release-8.9-2.el8.remi 
         state: present
 
     - name: Enable redis:remi-6.2
