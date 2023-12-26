@@ -67,7 +67,7 @@
 
     - name: Get the categories count
       ansible.builtin.command: 
-        cmd: "mongo --host mongodb.prudhvi.online --quiet --eval 'db = db.getSiblingDB(\"catalogue\"); printjson(db.products.count())'"
+        cmd: "mongo --host mongodb.prudhvi.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'"
       register: product_count
       ignore_errors: true
 
