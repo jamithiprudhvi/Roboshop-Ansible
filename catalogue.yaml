@@ -61,9 +61,23 @@
         name: mongodb-org-shell 
         state: present
 
-    - name: get the categories count
-      ansible.builtin.command: mongo --host mongodb.prudhvi.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+    # - name: get the categories count
+    #   ansible.builtin.command: mongo --host mongodb.prudhvi.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+    #   register: product_count
+
+    - name: Get the categories count
+      ansible.builtin.command: 
+        cmd: "mongo --host mongodb.prudhvi.online --quiet --eval 'db = db.getSiblingDB(\"catalogue\"); printjson(db.products.count())'"
       register: product_count
+      ignore_errors: true
+
+    - debug:
+        var: product_count
+
+    - fail:
+        msg: "Failed to connect to MongoDB server"
+      when: product_count.rc != 0
+
 
 
     # - name: print the count
