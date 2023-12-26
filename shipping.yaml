@@ -67,11 +67,15 @@
     ansible.builtin.debug:
       msg: "schema output: {{schema}}"
 
+  - name: load cities and data
+    ansible.builtin.shell: "mysql -h mysql.prudhvi.online -uroot -p{{mysql_password}} < /app/schema/shipping.sql"
+    when: schema.stdout != "1"
 
-  - name: Start and enable catalogue
+
+  - name: Start and enable shipping
     ansible.builtin.service:
-      name: catalogue
-      state: started
+      name: shipping
+      state: restarted
       enabled: yes
 
   
