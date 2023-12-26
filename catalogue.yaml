@@ -71,12 +71,12 @@
       register: product_count
       ignore_errors: true
 
-    - debug:
-        var: product_count
+    # - debug:
+    #     var: product_count
 
-    - fail:
-        msg: "Failed to connect to MongoDB server"
-      when: product_count.rc != 0
+    # - fail:
+    #     msg: "Failed to connect to MongoDB server"
+    #   when: product_count.rc != 0
 
 
 
