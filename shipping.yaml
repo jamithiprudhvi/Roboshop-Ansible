@@ -1,6 +1,8 @@
 - name: Install shipping component
   hosts: shipping
   become: yes
+  vars:
+    mysql_password: RoboShop@1
   tasks:
   - name: install maven
     ansible.builtin.package:
@@ -53,10 +55,24 @@
     ansible.builtin.systemd_service:
       daemon_reload: true
 
+  - name: Install mysql
+    ansible.builtin.package:
+      name: mysql
+      state: present
+
+  - name: Check cities schema exists or not
+    ansible.builtin.command: mysql -h mysql.daws76s.online -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+    register: schema
+
+  - name: print output
+    ansible.builtin.debug:
+      msg: "schema output: {{schema}}"
+
+
   - name: Start and enable catalogue
     ansible.builtin.service:
       name: catalogue
-      state: restarted
+      state: started
       enabled: yes
 
   
