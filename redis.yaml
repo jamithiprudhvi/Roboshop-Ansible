@@ -2,25 +2,27 @@
   hosts: redis
   become: yes
   tasks:
-    - name: install remi-release-8.9-2.el8.remi 
-      ansible.builtin.command: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+  - name: install remi-release-8.9-2.el8.remi 
+    ansible.builtin.dnf: 
+      name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm 
+      state: present
 
-    - name: Enable redis:remi-6.2
-      ansible.builtin.command: dnf module enable redis:remi-6.2 -y
+  - name: Enable redis:remi-6.2
+    ansible.builtin.command: dnf module enable redis:remi-6.2 -y
 
-    - name: install redis
-      ansible.builtin.package:
-        name: redis
-        state: present    
+  - name: install redis
+    ansible.builtin.package:
+      name: redis
+      state: present    
 
-    - name: Allow remot connections
-      ansible.builtin.replace:
-        path: /etc/redis.conf
-        regexp: '127.0.0.1'
-        replace: '0.0.0.0'  
+  - name: Allow remote connections
+    ansible.builtin.replace:
+      path: /etc/redis.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'  
 
-    - name: Start and enable redis
-      ansible.builtin.service:
-        name: redis
-        state: restarted  
-        enabled: yes   
+  - name: Start and enable redis
+    ansible.builtin.service:
+      name: redis
+      state: restarted  
+      enabled: yes   
