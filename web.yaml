@@ -22,9 +22,6 @@
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
       dest: /tmp
 
-  - name: changing directory
-    ansible.builtin.command: cd /usr/share/nginx/html
-
   - name: Extract web application
     ansible.builtin.unarchive:
       src: /tmp/web.zip
